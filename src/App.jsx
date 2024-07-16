@@ -1,4 +1,4 @@
-import { OrbitControls, useHelper } from "@react-three/drei";
+import { OrbitControls, SpotLight, useHelper } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
 import { useRef } from "react";
@@ -6,21 +6,25 @@ import * as THREE from "three";
 
 const Lights = () => {
   const ref = useRef();
-  const helper = useHelper(ref, THREE.PointLightHelper, 0.5, "red");
-  const { color, distance, decay, intensity } = useControls({
-    color: "#ff0000",
-    distance: 3,
-    decay: 2,
-    intensity: 0.5,
+
+  const helper = useHelper(ref, THREE.SpotLightHelper, "red");
+
+  const { color, distance, attenuation, angle, anglePower } = useControls({
+    color: "#0876ae5",
+    distance: 6,
+    attenuation: 2.2,
+    angle: 1,
+    anglePower: 1,
   });
+
   return (
-    <pointLight
+    <SpotLight
       ref={ref}
-      intensity={intensity}
-      position={[1, 1, 1]}
-      distance={distance}
-      decay={decay}
       color={color}
+      distance={distance}
+      attenuation={attenuation}
+      angle={angle}
+      anglePower={anglePower}
     />
   );
 };
